@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express');
 const app = express();
 const path = require('path'); // Import the path module
@@ -5,7 +6,12 @@ const cors = require('cors');
 const port = 8000;
 const ip = '0.0.0.0';
 
-app.use(cors());
+app.use(cors({
+    origin : process.env.FRONT_END_URL,
+    credentials : true,
+    methods : ["GET" , "POST", "PUT" , "DELETE"],
+    allowedHeaders : ["Content-Type" , "Authorization"]
+}));
 app.use(express.json());
 const authorsRouter = require('./authors');
 const addAuthorsRouter = require('./add-authors');
