@@ -1,13 +1,11 @@
 require("dotenv").config()
 const express = require('express');
 const app = express();
-const path = require('path'); // Import the path module
 const cors = require('cors');
 const port = 8000;
 const ip = '0.0.0.0';
 
 app.use(cors({
-    origin : process.env.FRONT_END_URL,
     credentials : true,
     methods : ["GET" , "POST", "PUT" , "DELETE"],
     allowedHeaders : ["Content-Type" , "Authorization"]
@@ -28,6 +26,8 @@ const bookRouter = require('./book');
 const quotesRouter = require('./learn');
 const addBooksRouter = require('./add-book');
 const addExcelBook = require('./add-excel-book');
+const loginValidation = require('./login/auth');
+const createAcount = require('./login/createAcount');
 app.use('/authors', authorsRouter);
 app.use('/mm',mmRouter);
 app.use('/people',peopleRouter);
@@ -43,7 +43,9 @@ app.use('/books',bookRouter);
 app.use('/learn', quotesRouter);
 app.use('/add-book',addBooksRouter);
 app.use('/add-excel/books',addExcelBook);
+app.use('/login',loginValidation);
+app.use('/login/createAccount',createAcount);
 
 app.listen(port, ip, () => {
-    console.log(`Server running at http://${ip}:${port}/`);
+    console.log(`Server running at http://:${ip}:${port}/`);
 });

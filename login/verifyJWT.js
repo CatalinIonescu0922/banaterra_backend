@@ -1,3 +1,12 @@
+const { request } = require("express")
 const jwt = require("jsonwebtoken")
-const express = require("express")
-const router = express.Router()
+
+function verifyJwt(req , res , next ) {
+    const token = req.cookies.authToken
+
+    if(!token) {
+        return res.status(401).json({message : "No auth token acces denied"})
+    }
+
+    
+}
